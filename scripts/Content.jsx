@@ -16,6 +16,7 @@ export function Content() {
             }
         });
     }
+    //put message on correct channel
     
     function updateAddresses(data) {
         console.log("Received messages from server: " + data['allAddresses']);
