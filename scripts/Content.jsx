@@ -36,7 +36,7 @@ export function Content() {
     getNewAddresses();
 
     return (
-        <div>
+        <div class="Title">
             <h1>Chat Room!</h1>
                 <ol>
                     {
