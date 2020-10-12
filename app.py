@@ -1,6 +1,7 @@
 # app.py
 from os.path import join, dirname
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
+import dotenv
 import os
 import flask
 import flask_sqlalchemy
@@ -15,7 +16,7 @@ socketio = flask_socketio.SocketIO(app)
 socketio.init_app(app, cors_allowed_origins="*")
 
 dotenv_path = join(dirname(__file__), 'sql.env')
-load_dotenv(dotenv_path)
+dotenv.load_dotenv(dotenv_path)
 
 #sql_user = os.environ['SQL_USER']
 #sql_pwd = os.environ['SQL_PASSWORD']
