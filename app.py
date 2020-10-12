@@ -1,6 +1,6 @@
 # app.py
 from os.path import join, dirname
-#from dotenv import load_dotenv
+from dotenv import load_dotenv
 import dotenv
 import os
 import flask
