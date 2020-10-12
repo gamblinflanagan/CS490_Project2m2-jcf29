@@ -1,7 +1,7 @@
 # app.py
 from os.path import join, dirname
-from dotenv import load_dotenv
-import dotenv
+#import dotenv
+#from dotenv import load_dotenv
 import os
 import flask
 import flask_sqlalchemy
@@ -15,15 +15,14 @@ app = flask.Flask(__name__)
 socketio = flask_socketio.SocketIO(app)
 socketio.init_app(app, cors_allowed_origins="*")
 
-dotenv_path = join(dirname(__file__), 'sql.env')
-dotenv.load_dotenv(dotenv_path)
+#dotenv_path = join(dirname(__file__), 'sql.env')
+#dotenv.load_dotenv(dotenv_path)
 
 #sql_user = os.environ['SQL_USER']
 #sql_pwd = os.environ['SQL_PASSWORD']
 #dbuser = os.environ['USER']
 
-database_uri = os.environ('DATABASE_URL')
-
+database_uri = os.environ['DATABASE_URL']
 #database_uri = 'postgresql://{}:{}@localhost/postgres'.format(sql_user, sql_pwd)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
