@@ -72,13 +72,11 @@ def on_new_address(data):
     
     db.session.add(models.Usps(data["address"]));
     db.session.commit();
-    
+    '''
     socketio.emit('message received', {
         'address': data["address"]
     })
-    
-    #search files in lect10 for variable rand_number
-    #search what socket.emit means
+    '''
     
     emit_all_addresses(MESSAGES_RECEIVED_CHANNEL)
 
@@ -98,3 +96,6 @@ if __name__ == '__main__':
         port=int(os.getenv('PORT', 8080)),
         debug=True
     )
+
+
+#<link rel="stylesheet" href="/static/styles.css">

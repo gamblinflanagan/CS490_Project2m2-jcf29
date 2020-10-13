@@ -10,9 +10,9 @@ export function Content() {
     
     function getNewAddresses() {
         React.useEffect(() => {
-            Socket.on('addresses received', updateAddresses);
+            Socket.on('messages received', updateAddresses);
             return () => {
-                Socket.off('addresses received', updateAddresses);
+                Socket.off('messages received', updateAddresses);
             }
         });
     }
@@ -44,14 +44,16 @@ export function Content() {
     return (
         <div className="Title">
             <h1>Chat Room!</h1>
-                <ol>
-                    {
-                       //addresses.map((address, index) =>
-                       //addresses.map((address) => <li>{address}</li>)
-                        addresses.map((address, index) => <li key ={index}>{addresses}</li>)
-                    }
-                </ol>
             <Button />
+                <div className="List">
+                    <ol>
+                        {
+                            //addresses.map((address, index) =>
+                            //addresses.map((address) => <li>{address}</li>)
+                            addresses.map((address, index) => <li key ={index}>{addresses}</li>)
+                        }
+                    </ol>
+                 </div>
         </div>
     );
 }

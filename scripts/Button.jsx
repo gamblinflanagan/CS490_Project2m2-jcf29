@@ -16,7 +16,7 @@ export function Button()
         event.preventDefault();
     }
 
-
+    /*
     const [lst, setLst] = useState([]);
 
     function submitData() 
@@ -26,22 +26,22 @@ export function Button()
         //const map1 = lst.map((x) => x);
         //console.log(map1);
         return lst;
-    }
-    
-    
-    return (
-        <form onSubmit={handleSubmit}>
-            <input id="message_input" placeholder="Enter a message"></input>
-            <button onClick={submitData}>Send</button>
-            <div className="List">
-            <span>
+        
+        <span>
               <ul>
                 {lst.map((item) => (
                   <li>{item}</li>
                 ))}
               </ul>
             </span>
-          </div>
+            onClick={submitData}
+    }
+    */
+    
+    return (
+        <form onSubmit={handleSubmit}>
+            <input id="message_input" placeholder="Enter a message"></input>
+            <button>Send</button>
         </form>
     );
 }
