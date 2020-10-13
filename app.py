@@ -46,9 +46,14 @@ def emit_all_addresses(channel):
         
     })
 
+usrLst = []
+userName = 'default'
 @socketio.on('connect')
 def on_connect():
-    print('A new user connected!')
+    counter = len(usrLst)
+    userName = 'user0X' + str(counter)
+    usrLst.append(userName)
+    print('A new user '+userName+' has connected!')
     socketio.emit('connected', {
         'test': 'Connected'
     })
@@ -57,14 +62,23 @@ def on_connect():
     
 @socketio.on('disconnect')
 def on_disconnect():
-    print ('A user disconnected!')
+    userName = str(usrLst[-1])
+    print ('user '+userName+' has disconnected!')
+    usrLst.pop()
 
-@socketio.on('new address input')
+@socketio.on('new address input')#listens to client for message can put my if for command from bot in here
 def on_new_address(data):
     print("Got an event for new message with data:", data)
     
     db.session.add(models.Usps(data["address"]));
     db.session.commit();
+    
+    socketio.emit('message received', {
+        'address': data["address"]
+    })
+    
+    #search files in lect10 for variable rand_number
+    #search what socket.emit means
     
     emit_all_addresses(MESSAGES_RECEIVED_CHANNEL)
 
@@ -75,7 +89,7 @@ import models
 def index():
     emit_all_addresses(MESSAGES_RECEIVED_CHANNEL)
 
-    return flask.render_template("index.html")
+    return flask.render_template("index.html", the_userName = userName)
 
 if __name__ == '__main__': 
     socketio.run(

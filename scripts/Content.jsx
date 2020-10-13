@@ -20,30 +20,35 @@ export function Content() {
     
     function updateAddresses(data) {
         console.log("Received messages from server: " + data['allAddresses']);
+        addresses.push(data['address']);
+        //setAddresses(() => addresses.map((address, index) => key={index} {address}));
         setAddresses(data['allAddresses']);
+        return addresses;
     }
     /*
     function getNewAddresses() 
     {
         React.useEffect(() => {
             Socket.on('address received', (data) => {
-                console.log("Received addresses from server: " + data['allAddresses']);
-                setAddresses(data['allAddresses']);
+                console.log("Received addresses from server: " + data['address']);
+                addresses.push(data['address']);
+                //setAddresses(() => addresses.map((address, index) => key={index} {address}));
             })
         });
+         return addresses;
     }
     */
     
     getNewAddresses();
 
     return (
-        <div class="Title">
+        <div className="Title">
             <h1>Chat Room!</h1>
                 <ol>
                     {
-                       addresses.map((address, index) =>
-                       <li>{address}</li>)
-                        //addresses.map((address, index) => <li key ={index}>{addresses}</li>)
+                       //addresses.map((address, index) =>
+                       //addresses.map((address) => <li>{address}</li>)
+                        addresses.map((address, index) => <li key ={index}>{addresses}</li>)
                     }
                 </ol>
             <Button />
