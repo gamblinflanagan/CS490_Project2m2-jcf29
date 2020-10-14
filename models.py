@@ -11,5 +11,4 @@ class Usps(db.Model):
         self.address = a
         
     def __repr__(self):
-        return '<Usps address: %s>' % self.address 
-
+        return '<Usps address: %s>' % self.address

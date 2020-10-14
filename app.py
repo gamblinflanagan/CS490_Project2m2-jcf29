@@ -9,6 +9,7 @@ import flask_socketio
 #import models 
 
 MESSAGES_RECEIVED_CHANNEL = 'messages received'
+decide = 0
 
 app = flask.Flask(__name__)
 
@@ -40,11 +41,10 @@ def emit_all_addresses(channel):
         db_address.address for db_address in \
         db.session.query(models.Usps).all()]
     
-    
     socketio.emit(channel, {
         'allAddresses': all_addresses
-        
     })
+
 
 usrLst = []
 userName = 'default'
@@ -57,8 +57,8 @@ def on_connect():
     socketio.emit('connected', {
         'test': 'Connected'
     })
-    
     emit_all_addresses(MESSAGES_RECEIVED_CHANNEL)
+    
     
 @socketio.on('disconnect')
 def on_disconnect():
@@ -66,19 +66,24 @@ def on_disconnect():
     print ('user '+userName+' has disconnected!')
     usrLst.pop()
 
+
+
 @socketio.on('new address input')#listens to client for message can put my if for command from bot in here
 def on_new_address(data):
     print("Got an event for new message with data:", data)
     
     db.session.add(models.Usps(data["address"]));
     db.session.commit();
-    '''
-    socketio.emit('message received', {
-        'address': data["address"]
-    })
-    '''
+    
+    if '!help' in data["address"]:
+        data["address"] = "oooff Madone!! its chat app alls ya gotta do is enter a message and press send, kepeesh!!"
+        db.session.add(models.Usps(data["address"]));
+        db.session.commit();
     
     emit_all_addresses(MESSAGES_RECEIVED_CHANNEL)
+    
+    
+    
 
 
 import models 

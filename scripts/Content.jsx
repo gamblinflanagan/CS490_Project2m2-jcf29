@@ -10,6 +10,7 @@ export function Content() {
     
     function getNewAddresses() {
         React.useEffect(() => {
+            Socket.removeAllListeners();
             Socket.on('messages received', updateAddresses);
             return () => {
                 Socket.off('messages received', updateAddresses);
@@ -20,12 +21,33 @@ export function Content() {
     
     function updateAddresses(data) {
         console.log("Received messages from server: " + data['allAddresses']);
-        addresses.push(data['address']);
+        //addresses.push(data['address']);
         //setAddresses(() => addresses.map((address, index) => key={index} {address}));
         setAddresses(data['allAddresses']);
         return addresses;
     }
-    /*
+    
+    getNewAddresses();
+
+    return (
+        <div className="Title">
+            <h1>Chat Room!</h1>
+            <Button />
+                <div className="List">
+                    <ul>
+                        {
+                            //addresses.map((address, index) =>
+                            //addresses.map((address) => <li>{address}</li>)
+                            addresses.map((address, index) => <li key ={index}>{address}</li>)
+                        }
+                    </ul>
+                 </div>
+        </div>
+    );
+}
+
+
+  /*
     function getNewAddresses() 
     {
         React.useEffect(() => {
@@ -38,22 +60,3 @@ export function Content() {
          return addresses;
     }
     */
-    
-    getNewAddresses();
-
-    return (
-        <div className="Title">
-            <h1>Chat Room!</h1>
-            <Button />
-                <div className="List">
-                    <ol>
-                        {
-                            //addresses.map((address, index) =>
-                            //addresses.map((address) => <li>{address}</li>)
-                            addresses.map((address, index) => <li key ={index}>{addresses}</li>)
-                        }
-                    </ol>
-                 </div>
-        </div>
-    );
-}
