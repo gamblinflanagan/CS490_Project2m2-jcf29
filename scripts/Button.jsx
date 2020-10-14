@@ -5,13 +5,13 @@ import { Socket } from './Socket';
 export function Button() 
 {
     function handleSubmit(event) {
-        let newAddress = document.getElementById("message_input");
-        Socket.emit('new address input', {
-            'address': newAddress.value
+        let newMessage = document.getElementById("message_input");
+        Socket.emit('new message input', {
+            'message': newMessage.value
         });
         
-        console.log('Sent the message ' + newAddress.value + ' to server!');
-        newAddress.value = ''
+        console.log('Sent the message ' + newMessage.value + ' to server!');
+        newMessage.value = ''
         
         event.preventDefault();
     }
