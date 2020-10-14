@@ -6,6 +6,8 @@ import os
 import flask
 import flask_sqlalchemy
 import flask_socketio
+import random
+import tweepy
 #import models 
 
 MESSAGES_RECEIVED_CHANNEL = 'messages received'
@@ -75,10 +77,42 @@ def on_new_address(data):
     db.session.add(models.Usps(data["message"]));
     db.session.commit();
     
-    if '!help' in data["message"]:
-        data["message"] = "oooff Madone!! enter a message and press send, kepeesh!!"
-        db.session.add(models.Usps(data["message"]));
-        db.session.commit();
+    x = data["message"]
+    if x[0] == x[1] == "!":
+        if '!! help' == x[:7]:
+            lst = ["!!help is a list of commands", "!!about is a little about me", "!!funtranslate ill translate ya message", "!!rand random number I thought of", "!!tweet ill find a tweet for ya"]
+            #data["message"] = "enter !!help for this, to about me enter !!about Ill translate somethin for ya with !!funtranslate, Ill make art with !!art, Ill find a tweet with !!tweet"
+            for i in range(0, len(lst)):
+                data["message"] = lst[i]
+                db.session.add(models.Usps(data["message"]));
+                db.session.commit();
+        
+        elif '!! about' == x[:8]:
+            data["message"] = "I'm Don Bot ya favorite wiseguy but in bot form you got a problem you come to me by entering !!help"
+            db.session.add(models.Usps(data["message"]));
+            db.session.commit();
+        
+        elif '!! funtranslate' == x[:15]:
+            data["message"] = "translate"
+            db.session.add(models.Usps(data["message"]));
+            db.session.commit();
+        
+        elif '!! rand' == x[:7]:
+            rand = random.randint(1, 100)
+            data["message"] = str(rand)
+            db.session.add(models.Usps(data["message"]));
+            db.session.commit();
+        
+        
+        elif '!! tweet' == x[:8]:
+            data["message"] = "tweet"
+            db.session.add(models.Usps(data["message"]));
+            db.session.commit();
+        
+        else:
+            data["message"] = "I donno know that command"
+            db.session.add(models.Usps(data["message"]));
+            db.session.commit();
     
     emit_all_messages(MESSAGES_RECEIVED_CHANNEL)
     
