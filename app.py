@@ -12,7 +12,8 @@ import requests, json
 
 MESSAGES_RECEIVED_CHANNEL = 'messages received'
 decide = 0
-weather_key = os.environ['WEATHER_API']
+weather_key = os.environ['WEATHER_KEY']
+translate_key = os.environ['FUN_TRANSLATE_KEY']
 
 app = flask.Flask(__name__)
 
@@ -33,21 +34,28 @@ database_uri = os.environ['DATABASE_URL']
 
 def weather(the_city):  
   
-    URL = "http://api.openweathermap.org/data/2.5/weather?appid=" + weather_key + "&q=" + the_city
+    URL = "http://api.openweathermap.org/data/2.5/weather?appid=" + weather_key + "&q=" + str(the_city)
     response = requests.get(URL) 
-  
     json_response = response.json() 
-  
     if json_response["cod"] != "404": 
         final = json_response["weather"] 
- 
         descript = final[0]["description"] 
-  
         rt = "The weather in "+the_city+" is "+str(descript)
     else: 
         rt = " City Not Found "
         
     return rt
+
+def translate(text):
+        URL = 'https://api.funtranslations.com/translate/sith?api_key='+translate_key+'.json?text='+str(text)
+        response = requests.get(URL) 
+        json_response = response.json()
+        counter = 0
+        for key, value in json_response.items():
+            print(key, value)
+            if counter == 2:
+                trans = str(value)
+        return trans
 
 
 app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
@@ -115,7 +123,8 @@ def on_new_address(data):
             db.session.commit();
         
         elif '!! funtranslate' == x[:15]:
-            data["message"] = "translate"
+            msg = x[15:]
+            data["message"] = (str(translate(msg)))
             db.session.add(models.Usps(data["message"]));
             db.session.commit();
         
