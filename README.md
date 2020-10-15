@@ -25,6 +25,10 @@ flask_sqlalchemy
 
 flask_socketio
 
+funtranslations
+
+openweathermap
+
 
 
 ### INSTALLING PIP
@@ -98,10 +102,12 @@ Role name     |                   Attributes                   | Member of
 
 
 
-### ENV FILE
-* create a new file cale `sql.env`
+### ENV FILES
+* create new files cale `sql.env`, `weather_api.env`, `translate_api.env` #only if you have an api key for funtranslations
 * in sql.env write `DATABASE_URL='postgresql://`DBusername`:`DBpassword`@localhost/postgres'` and save the file
-* you may need to run the command `source sql.env` in the terminal
+* in weather_ api.env  write `export WEATHER_KEY=`'api_key' and save the file
+* in translate_ api.env write `export FUN_TRANSLATE_KEY=`'api_key' and save the file #only if you have an api key for funtranslations
+* you may need to run the command source the env files, EXAMPLE for sql.env write `source sql.env` in the terminal
 
 
 
