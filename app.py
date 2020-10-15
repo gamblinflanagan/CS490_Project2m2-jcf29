@@ -7,11 +7,12 @@ import flask
 import flask_sqlalchemy
 import flask_socketio
 import random
-import tweepy
 #import models 
+import requests, json 
 
 MESSAGES_RECEIVED_CHANNEL = 'messages received'
 decide = 0
+weather_key = os.environ['WEATHER_API']
 
 app = flask.Flask(__name__)
 
@@ -25,8 +26,29 @@ dotenv.load_dotenv(dotenv_path)
 #sql_pwd = os.environ['SQL_PASSWORD']
 #dbuser = os.environ['USER']
 
+
 database_uri = os.environ['DATABASE_URL']
 #database_uri = 'postgresql://{}:{}@localhost/postgres'.format(sql_user, sql_pwd)
+
+
+def weather(the_city):  
+  
+    URL = "http://api.openweathermap.org/data/2.5/weather?appid=" + weather_key + "&q=" + the_city
+    response = requests.get(URL) 
+  
+    json_response = response.json() 
+  
+    if json_response["cod"] != "404": 
+        final = json_response["weather"] 
+ 
+        descript = final[0]["description"] 
+  
+        rt = "The weather in "+the_city+" is "+str(descript)
+    else: 
+        rt = " City Not Found "
+        
+    return rt
+
 
 app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
 
@@ -80,7 +102,7 @@ def on_new_address(data):
     x = data["message"]
     if x[0] == x[1] == "!":
         if '!! help' == x[:7]:
-            lst = ["!!help is a list of commands", "!!about is a little about me", "!!funtranslate ill translate ya message", "!!rand random number I thought of", "!!tweet ill find a tweet for ya"]
+            lst = ["!! help is a list of commands i know", "!! about is a little about me", "enter !! funtranslate followed by your message and ill translate your message", "!! cash is the amount of money i won cheating at poker with x-ray specs", "!! weather followed by your city for the weather"]
             #data["message"] = "enter !!help for this, to about me enter !!about Ill translate somethin for ya with !!funtranslate, Ill make art with !!art, Ill find a tweet with !!tweet"
             for i in range(0, len(lst)):
                 data["message"] = lst[i]
@@ -88,7 +110,7 @@ def on_new_address(data):
                 db.session.commit();
         
         elif '!! about' == x[:8]:
-            data["message"] = "I'm Don Bot ya favorite wiseguy but in bot form you got a problem you come to me by entering !!help"
+            data["message"] = "I'm Bender babby Please Insert Liquor"
             db.session.add(models.Usps(data["message"]));
             db.session.commit();
         
@@ -97,15 +119,16 @@ def on_new_address(data):
             db.session.add(models.Usps(data["message"]));
             db.session.commit();
         
-        elif '!! rand' == x[:7]:
+        elif '!! cash' == x[:7]:
             rand = random.randint(1, 100)
-            data["message"] = str(rand)
+            data["message"] = "$"+str(rand)
             db.session.add(models.Usps(data["message"]));
             db.session.commit();
         
         
-        elif '!! tweet' == x[:8]:
-            data["message"] = "tweet"
+        elif '!! weather' == x[:10]:
+            city = x[10:]
+            data["message"] = (str(weather(city)))
             db.session.add(models.Usps(data["message"]));
             db.session.commit();
         
