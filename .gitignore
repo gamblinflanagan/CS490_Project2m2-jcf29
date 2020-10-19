@@ -1,3 +1,8 @@
 sql.env
 weather_api.env
 translate_api.env
+/node_modules
+package-lock.json
+webpack.config.js
+pg_hba.conf
+package.json

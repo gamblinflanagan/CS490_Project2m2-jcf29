@@ -1,7 +1,7 @@
     
 import * as React from 'react';
 
-
+import Linkify from 'react-linkify';
 import { Button } from './Button';
 import { Socket } from './Socket';
 
@@ -30,33 +30,19 @@ export function Content() {
     getNewAddresses();
 
     return (
-        <div className="Title">
-            <h1>Chat Room!</h1>
-            <Button />
-                <div className="List">
-                    <ul>
-                        {
-                            //addresses.map((address, index) =>
-                            //addresses.map((address) => <li>{address}</li>)
-                            messages.map((message, index) => <li key ={index}>{message}</li>)
-                        }
-                    </ul>
-                 </div>
+        <div className="All">
+            <div className="Title">
+                <Button />
+            </div>
+            <div className="List">
+                <ul>
+                    {
+                        //addresses.map((address, index) =>
+                        //addresses.map((address) => <li>{address}</li>)
+                        messages.map((message, index) => <li key ={index}>{message}</li>)
+                    }
+                </ul>
+            </div>
         </div>
     );
 }
-
-
-  /*
-    function getNewAddresses() 
-    {
-        React.useEffect(() => {
-            Socket.on('address received', (data) => {
-                console.log("Received addresses from server: " + data['address']);
-                addresses.push(data['address']);
-                //setAddresses(() => addresses.map((address, index) => key={index} {address}));
-            })
-        });
-         return addresses;
-    }
-    */

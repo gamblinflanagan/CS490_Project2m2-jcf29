@@ -12,6 +12,7 @@
         .Title {
             top: 10%;  
             text-align: center;
+            color:#008B8B;
         }
         
         .List {
@@ -24,10 +25,11 @@
            font-family: sans-serif;
            font-size: 25px;
            border-radius: 25px;
-           border: 2px solid #000000;
-           margin-top: 50px;
-           height:400px;
-           width:650px;
+           border: 2px solid #008B8B;
+           margin-top: 90px;
+           height:550px;
+           width:950px;
            overflow:auto;
            scrollbar-base-color:gold;font-family:sans-serif;font-size:25px;padding:10px;
         }
+        

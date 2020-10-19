@@ -1,5 +1,7 @@
 //import * as React from 'react';
 import React, { useState } from "react";
+import ReactDOM from 'react-dom';
+import GoogleLogin from 'react-google-login';
 import { Socket } from './Socket';
 
 export function Button() 
@@ -15,33 +17,61 @@ export function Button()
         
         event.preventDefault();
     }
-
-    /*
-    const [lst, setLst] = useState([]);
-
-    function submitData() 
-    {
-        lst.push(document.getElementById("message_input").value);
-        setLst(() => lst.map((x) => x));
-        //const map1 = lst.map((x) => x);
-        //console.log(map1);
-        return lst;
-        
-        <span>
-              <ul>
-                {lst.map((item) => (
-                  <li>{item}</li>
-                ))}
-              </ul>
-            </span>
-            onClick={submitData}
-    }
-    */
     
-    return (
-        <form onSubmit={handleSubmit}>
-            <input id="message_input" placeholder="Enter a message"></input>
-            <button>Send</button>
-        </form>
-    );
+    const responseGoogle = (response) => {
+        console.log(response);
+        console.log(response.profileObj.email);
+        Socket.emit('new google user', {
+            'login': response.profileObj.name
+        });
+        ChangeVis()
+    }
+    
+
+    
+    //<button id="Log_in" onClick={ChangeVis}>Log in</button>
+    function ChangeVis() {
+     var form = document.getElementById("DISPLAY");
+     var inn = document.getElementById("Log_in");
+     var out = document.getElementById("Log_out");
+     
+      if (form.style.visibility == "hidden") 
+      {
+          form.style.visibility = "visible";
+          inn.style.visibility = "hidden";
+          out.style.visibility = "visible";
+      }
+      
+      else 
+      {
+          form.style.visibility = "hidden";
+          inn.style.visibility = "visible";
+          out.style.visibility = "hidden";
+      }
+       
+    }
+    
+    
+        return (
+            <div id="display">
+                <h1>Chat Room</h1>
+                <GoogleLogin
+                    id="Log_in"
+                    onClick={ChangeVis}
+                    style={{  visibility: "hidden" }}
+                    clientId="190844366643-nciscp4v2hcm2efpf4auuf8pkkrrct8c.apps.googleusercontent.com"
+                    buttonText="Login"
+                    onSuccess={responseGoogle}
+                    onFailure={responseGoogle}
+                    cookiePolicy={'single_host_origin'} />
+                <button id="Log_out" onClick={ChangeVis} style={{  visibility: "hidden" }}>Log out</button>
+                
+                
+                <form id="DISPLAY" onSubmit={handleSubmit} style={{  visibility: "hidden" }}>
+                    <input id="message_input" placeholder="Enter a message"></input>
+                    <button>send</button>
+                </form>
+            </div>
+        );
+    
 }
