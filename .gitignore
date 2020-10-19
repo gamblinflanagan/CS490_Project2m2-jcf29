@@ -6,3 +6,4 @@ package-lock.json
 webpack.config.js
 pg_hba.conf
 package.json
+/__pycache__
