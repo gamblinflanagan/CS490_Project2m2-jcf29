@@ -35,13 +35,15 @@ export function Content() {
                 <Button />
             </div>
             <div className="List">
-                <ul>
-                    {
-                        //addresses.map((address, index) =>
-                        //addresses.map((address) => <li>{address}</li>)
-                        messages.map((message, index) => <li key ={index}>{message}</li>)
-                    }
-                </ul>
+                <Linkify>
+                    <ul>
+                        {
+                            //addresses.map((address, index) =>
+                            //addresses.map((address) => <li>{address}</li>)
+                            messages.map((message, index) => <li key ={index}>{message}</li>)
+                        }
+                    </ul>
+                </Linkify>
             </div>
         </div>
     );

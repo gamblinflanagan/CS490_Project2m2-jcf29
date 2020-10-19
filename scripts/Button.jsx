@@ -18,11 +18,22 @@ export function Button()
         event.preventDefault();
     }
     
+    
     const responseGoogle = (response) => {
-        console.log(response);
-        console.log(response.profileObj.email);
-        Socket.emit('new google user', {
-            'login': response.profileObj.name
+        var profile = []
+        //console.log(response);
+        //console.log(response.profileObj);
+        profile.push(response.profileObj.email)
+        profile.push(response.profileObj.familyName);
+        profile.push(response.profileObj.givenName);
+        profile.push(response.profileObj.googleId);
+        profile.push(response.profileObj.imageUrl);
+        profile.push(response.profileObj.name);
+        console.log(profile);
+        
+        Socket.emit('google user', {
+            //'login': response.profileObj.name
+             'login': profile
         });
         ChangeVis()
     }
@@ -54,7 +65,7 @@ export function Button()
     
         return (
             <div id="display">
-                <h1>Chat Room</h1>
+                <h1>Chit Chat Messaging</h1>
                 <GoogleLogin
                     id="Log_in"
                     onClick={ChangeVis}

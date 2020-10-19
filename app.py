@@ -78,25 +78,31 @@ def emit_all_messages(channel):
     })
 
 
-usrLst = []
-userName = 'default'
+
 @socketio.on('connect')
 def on_connect():
-    counter = len(usrLst)
-    userName = 'user0X' + str(counter)
-    usrLst.append(userName)
-    print('A new user '+userName+' has connected!')
+    print('A new user has connected!')
     socketio.emit('connected', {
         'test': 'Connected'
     })
+    #emit_all_messages(MESSAGES_RECEIVED_CHANNEL)
+
+
+@socketio.on('google user')
+def on_new_google_user(data):
+    print("a new user has connected with data:", data)
+    #db.session.add(models.users(data["login"]));
+    #db.session.commit();
+    
+    #emit_all_oauth_users(USERS_UPDATED_CHANNEL)
     emit_all_messages(MESSAGES_RECEIVED_CHANNEL)
     
     
 @socketio.on('disconnect')
 def on_disconnect():
-    userName = str(usrLst[-1])
-    print ('user '+userName+' has disconnected!')
-    usrLst.pop()
+    print("a new user has connected with data:")
+    #db.session.remove(models.users(data["login"]));
+    #db.session.commit();
 
 
 
@@ -110,7 +116,7 @@ def on_new_address(data):
     x = data["message"]
     if x[0] == x[1] == "!":
         if '!! help' == x[:7]:
-            lst = ["!! help is a list of commands i know", "!! about is a little about me", "enter !! funtranslate followed by your message and ill translate your message", "!! cash is the amount of money i won cheating at poker with x-ray specs", "!! weather followed by your city for the weather"]
+            lst = ["BENDER: !! help is a list of commands i know", "!! about is a little about me", "enter !! funtranslate followed by your message and ill translate your message", "!! cash is the amount of money i won cheating at poker with x-ray specs", "!! weather followed by your city for the weather"]
             #data["message"] = "enter !!help for this, to about me enter !!about Ill translate somethin for ya with !!funtranslate, Ill make art with !!art, Ill find a tweet with !!tweet"
             for i in range(0, len(lst)):
                 data["message"] = lst[i]
@@ -118,31 +124,31 @@ def on_new_address(data):
                 db.session.commit();
         
         elif '!! about' == x[:8]:
-            data["message"] = "I'm Bender babby Please Insert Liquor"
+            data["message"] = "BENDER: I'm Bender babby Please Insert Liquor"
             db.session.add(models.Usps(data["message"]));
             db.session.commit();
         
         elif '!! funtranslate' == x[:15]:
             msg = x[15:]
-            data["message"] = (str(translate(msg)))
+            data["message"] = "BENDER: "+(str(translate(msg)))
             db.session.add(models.Usps(data["message"]));
             db.session.commit();
         
         elif '!! cash' == x[:7]:
             rand = random.randint(1, 100)
-            data["message"] = "$"+str(rand)
+            data["message"] = "BENDER: $"+str(rand)
             db.session.add(models.Usps(data["message"]));
             db.session.commit();
         
         
         elif '!! weather' == x[:10]:
             city = x[10:]
-            data["message"] = (str(weather(city)))
+            data["message"] = "BENDER: "+(str(weather(city)))
             db.session.add(models.Usps(data["message"]));
             db.session.commit();
         
         else:
-            data["message"] = "I donno know that command"
+            data["message"] = "BENDER: I donno know that command"
             db.session.add(models.Usps(data["message"]));
             db.session.commit();
     
@@ -158,7 +164,7 @@ import models
 def index():
     emit_all_messages(MESSAGES_RECEIVED_CHANNEL)
 
-    return flask.render_template("index.html", the_userName = userName)
+    return flask.render_template("index.html")
 
 if __name__ == '__main__': 
     socketio.run(
