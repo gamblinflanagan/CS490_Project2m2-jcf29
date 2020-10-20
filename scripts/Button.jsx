@@ -6,21 +6,10 @@ import { Socket } from './Socket';
 
 export function Button() 
 {
-    function handleSubmit(event) {
-        let newMessage = document.getElementById("message_input");
-        Socket.emit('new message input', {
-            'message': newMessage.value
-        });
-        
-        console.log('Sent the message ' + newMessage.value + ' to server!');
-        newMessage.value = ''
-        
-        event.preventDefault();
-    }
-    
+    var profile = []
+    const [name, setName] = React.useState("default");
     
     const responseGoogle = (response) => {
-        var profile = []
         //console.log(response);
         //console.log(response.profileObj);
         profile.push(response.profileObj.email)
@@ -29,13 +18,39 @@ export function Button()
         profile.push(response.profileObj.googleId);
         profile.push(response.profileObj.imageUrl);
         profile.push(response.profileObj.name);
-        console.log(profile);
+        //console.log(profile);
         
+        //name = response.profileObj.name;
+        setName(response.profileObj.name);
+       
         Socket.emit('google user', {
             //'login': response.profileObj.name
              'login': profile
         });
         ChangeVis()
+    }
+    
+    function handleSubmit(event) {
+        /*
+        let newMessage_actual = document.getElementById("message_input");
+        let name_actual = name.value; 
+        let newMessage = name_actual.value+": "+newMessage_actual.value;
+        */
+        let newMessage = document.getElementById("message_input");
+        Socket.emit('new message input', {
+            'message': newMessage.value
+        });
+        
+        console.log('Sent the message ' + newMessage.value + ' to server!');
+        newMessage.value = ''
+        console.log(name);
+        /*
+        var final = "default";
+        Socket.on('names', final);
+        console.log(final);
+        Socket.off('names', final);
+        */
+        event.preventDefault();
     }
     
 

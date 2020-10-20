@@ -90,9 +90,9 @@ def on_connect():
 
 @socketio.on('google user')
 def on_new_google_user(data):
-    print("a new user has connected with data:", data)
-    #db.session.add(models.users(data["login"]));
-    #db.session.commit();
+    print("a new user has ben authenticated with data:", data)
+    db.session.add(models.users(data["login"][0], data["login"][1], data["login"][2], data["login"][3], data["login"][4], data["login"][5]));
+    db.session.commit();
     
     #emit_all_oauth_users(USERS_UPDATED_CHANNEL)
     emit_all_messages(MESSAGES_RECEIVED_CHANNEL)
@@ -173,4 +173,3 @@ if __name__ == '__main__':
         port=int(os.getenv('PORT', 8080)),
         debug=True
     )
-    
