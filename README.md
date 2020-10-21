@@ -29,6 +29,8 @@ funtranslations
 
 openweathermap
 
+react-google-login
+
 
 
 ### INSTALLING PIP
@@ -100,6 +102,18 @@ Role name     |                   Attributes                   | Member of
            |              |          |             |             | postgres=CTc/postgres
  
 
+### INSTALING REACT-GOOGLE-LOGIN
+* run the command `npm install react-google-login`
+## ![more instructions on how to use can be found here](https://www.npmjs.com/package/react-google-login)
+
+## next you will need an account ![create one here](https://console.developers.google.com/)
+* click the dropdown in the top left hand corner ![image]()
+* name the project LEAVE THE LOCATION AS "No organization" and click create
+* click on 'Credentials' in the left pane then the '+Credentials' dropdown then 'OAuth client ID' ![image]()
+* under Application type chose Web application then choose a name for the application
+* # IMPORTANT you must add the uri to your app in the 'Authorized JavaScript origins' box ![image]()
+* click create and copy and paste your client ID with the ![google login button code](https://www.npmjs.com/package/react-google-login) (to get to this code go to the link and scroll down to How to use) ![image]()
+* click on 'OAuth consent screen' in the left pane then select 'External' and click 'create' ![image]()
 
 
 ### ENV FILES
@@ -107,7 +121,7 @@ Role name     |                   Attributes                   | Member of
 * in sql.env write `DATABASE_URL='postgresql://`DBusername`:`DBpassword`@localhost/postgres'` and save the file
 * in weather_ api.env  write `export WEATHER_KEY=`'api_key' and save the file
 * in translate_ api.env write `export FUN_TRANSLATE_KEY=`'api_key' and save the file #only if you have an api key for funtranslations
-* you may need to run the command source the env files, EXAMPLE for sql.env write `source sql.env` in the terminal
+* you may need to run the command source for the env files, EXAMPLE for sql.env write `source sql.env` in the terminal
 
 
 
