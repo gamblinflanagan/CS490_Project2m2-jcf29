@@ -107,13 +107,13 @@ Role name     |                   Attributes                   | Member of
 ## ![more instructions on how to use can be found here](https://www.npmjs.com/package/react-google-login)
 
 ## next you will need an account ![create one here](https://console.developers.google.com/)
-* click the dropdown in the top left hand corner ![image]()
+* click the dropdown in the top left hand corner ![image](https://github.com/gamblinflanagan/CS490_Project2m2-jcf29/blob/master/images/step1.png)
 * name the project LEAVE THE LOCATION AS "No organization" and click create
-* click on 'Credentials' in the left pane then the '+Credentials' dropdown then 'OAuth client ID' ![image]()
+* click on 'Credentials' in the left pane then the '+Credentials' dropdown then 'OAuth client ID' ![image](https://github.com/gamblinflanagan/CS490_Project2m2-jcf29/blob/master/images/step2.png)
 * under Application type chose Web application then choose a name for the application
-* # IMPORTANT you must add the uri to your app in the 'Authorized JavaScript origins' box ![image]()
-* click create and copy and paste your client ID with the ![google login button code](https://www.npmjs.com/package/react-google-login) (to get to this code go to the link and scroll down to How to use) ![image]()
-* click on 'OAuth consent screen' in the left pane then select 'External' and click 'create' ![image]()
+* # IMPORTANT you must add the uri to your app in the 'Authorized JavaScript origins' box ![image](https://github.com/gamblinflanagan/CS490_Project2m2-jcf29/blob/master/images/step3.png)
+* click create and copy and paste your client ID with the ![google login button code](https://www.npmjs.com/package/react-google-login) (to get to this code go to the link and scroll down to How to use) ![image](https://github.com/gamblinflanagan/CS490_Project2m2-jcf29/blob/master/images/step4.png)
+* click on 'OAuth consent screen' in the left pane then select 'External' and click 'create' ![image](https://github.com/gamblinflanagan/CS490_Project2m2-jcf29/blob/master/images/step5.png)
 
 
 ### ENV FILES
