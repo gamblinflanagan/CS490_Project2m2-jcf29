@@ -81,16 +81,20 @@ def emit_all_messages(channel):
 
 @socketio.on('connect')
 def on_connect():
-    print('A new user has connected!')
+    print('')
+    '''
     socketio.emit('connected', {
         'test': 'Connected'
     })
     #emit_all_messages(MESSAGES_RECEIVED_CHANNEL)
-
+    '''
 
 @socketio.on('google user')
 def on_new_google_user(data):
-    print("a new user has ben authenticated with data:", data)
+    print("a new user has connected ben authenticated with data:", data)
+    socketio.emit('connected', {
+        'test': 'Connected'
+    })
     db.session.add(models.users(data["login"][0], data["login"][1], data["login"][2], data["login"][3], data["login"][4], data["login"][5]));
     db.session.commit();
     
@@ -100,8 +104,8 @@ def on_new_google_user(data):
     
 @socketio.on('disconnect')
 def on_disconnect():
-    print("a new user has connected with data:")
-    #db.session.remove(models.users(data["login"]));
+    print("a new user has disconnected")
+    #db.session.delete(models.users).all()
     #db.session.commit();
 
 
@@ -124,7 +128,7 @@ def on_new_address(data):
                 db.session.commit();
         
         elif '!! about' == x[:8]:
-            data["message"] = "BENDER: I'm Bender babby Please Insert Liquor"
+            data["message"] = "BENDER: I'm Bender baby Please Insert Liquor"
             db.session.add(models.Usps(data["message"]));
             db.session.commit();
         

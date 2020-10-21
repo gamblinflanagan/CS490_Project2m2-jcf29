@@ -7,7 +7,8 @@ import { Socket } from './Socket';
 export function Button() 
 {
     var profile = []
-    const [name, setName] = React.useState("default");
+    const [profName, setprofName] = useState("");
+    const [profImage, setprofImage] = useState("");
     
     const responseGoogle = (response) => {
         //console.log(response);
@@ -20,8 +21,9 @@ export function Button()
         profile.push(response.profileObj.name);
         //console.log(profile);
         
-        //name = response.profileObj.name;
-        setName(response.profileObj.name);
+        setprofImage(response.profileObj.imageUrl);
+        setprofName(response.profileObj.name);
+        
        
         Socket.emit('google user', {
             //'login': response.profileObj.name
@@ -31,19 +33,20 @@ export function Button()
     }
     
     function handleSubmit(event) {
-        /*
+        
         let newMessage_actual = document.getElementById("message_input");
-        let name_actual = name.value; 
-        let newMessage = name_actual.value+": "+newMessage_actual.value;
-        */
+        let pName = profName+": "+newMessage_actual.value;
+        
         let newMessage = document.getElementById("message_input");
         Socket.emit('new message input', {
-            'message': newMessage.value
+            'message': pName
+            //newMessage.value
         });
         
         console.log('Sent the message ' + newMessage.value + ' to server!');
         newMessage.value = ''
-        console.log(name);
+        
+        console.log(pName);
         /*
         var final = "default";
         Socket.on('names', final);
@@ -65,18 +68,19 @@ export function Button()
       {
           form.style.visibility = "visible";
           inn.style.visibility = "hidden";
-          out.style.visibility = "visible";
+          //out.style.visibility = "visible";
       }
       
       else 
       {
           form.style.visibility = "hidden";
           inn.style.visibility = "visible";
-          out.style.visibility = "hidden";
+          //out.style.visibility = "hidden";
       }
        
     }
-    
+    // <button id="Log_out" onClick={ChangeVis} style={{  visibility: "hidden" }}>Log out</button>
+    //<img src="https://lh3.google.com/u/0/ogw/ADGmqu8YHsLqEtRWmgfuel5SpJ-PKa6l4i4b9VIx_q0I=s32-c-mo" />
     
         return (
             <div id="display">
@@ -90,14 +94,19 @@ export function Button()
                     onSuccess={responseGoogle}
                     onFailure={responseGoogle}
                     cookiePolicy={'single_host_origin'} />
-                <button id="Log_out" onClick={ChangeVis} style={{  visibility: "hidden" }}>Log out</button>
-                
-                
+               
+
                 <form id="DISPLAY" onSubmit={handleSubmit} style={{  visibility: "hidden" }}>
                     <input id="message_input" placeholder="Enter a message"></input>
                     <button>send</button>
                 </form>
+                <div className="profile">
+                    <img id="ppic" src={profImage} />
+                    <h1 id="pname">{profName}</h1>
+                </div>   
+                  
             </div>
         );
     
+   
 }
