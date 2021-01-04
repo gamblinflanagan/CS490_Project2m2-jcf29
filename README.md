@@ -1,6 +1,8 @@
 # CS490_Project2
 ## This is the second project the CS 490 of which the purpose is to create a chat webiste with a bot using a database and client and socket architecture
 
+### Web link
+https://cs490-project2m2-jcf29.herokuapp.com/
 
 
 ### Languages used:
